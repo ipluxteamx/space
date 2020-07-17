@@ -34,12 +34,10 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Boss, function (sprite, otherSprite) {
     mySprite4.startEffect(effects.fire, 500)
     statusbar.value += -0.5
-    music.playTone(110, music.beat(BeatFraction.Whole))
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.fire, 100)
     info.changeScoreBy(1)
-    music.playTone(110, music.beat(BeatFraction.Whole))
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     projectile2 = sprites.createProjectileFromSprite(img`
@@ -50,12 +48,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 5 5 
 5 5 
 `, mySprite, 0, -100)
-    music.playTone(300, music.beat(BeatFraction.Half))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
     otherSprite.destroy(effects.fire, 500)
-    music.playTone(110, music.beat(BeatFraction.Whole))
 })
 info.onLifeZero(function () {
     mySprite.destroy(effects.fire, 500)
