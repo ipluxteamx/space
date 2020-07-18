@@ -53,8 +53,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 info.onLifeZero(function () {
     mySprite.destroy(effects.fire, 500)
-    game.splash("GAME OVER!", "Press 'A' to reset.")
-    game.reset()
+    game.over(false, effects.blizzard)
 })
 let boss2: Sprite = null
 let mySprite2: Sprite = null
