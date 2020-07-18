@@ -24,12 +24,10 @@ namespace myTiles {
 `
 }
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
+    music.siren.play()
     mySprite4.startEffect(effects.blizzard, 4000)
     mySprite4.destroy(effects.fire, 5000)
     statusbar.setOffsetPadding(-100, -100)
-    pause(6000)
-    game.over(true, effects.blizzard)
-    music.siren.play()
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Boss, function (sprite, otherSprite) {
     mySprite4.startEffect(effects.fire, 500)
@@ -55,8 +53,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 info.onLifeZero(function () {
     mySprite.destroy(effects.fire, 500)
-    game.over(false, effects.dissolve)
+    game.splash("GAME OVER!", "Press 'A' to reset.")
+    game.reset()
 })
+let boss2: Sprite = null
 let mySprite2: Sprite = null
 let projectile2: Sprite = null
 let statusbar: StatusBarSprite = null
@@ -86,6 +86,7 @@ mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(0)
 info.setLife(3)
 let timeEnem = 700
+let gameover = 0
 game.onUpdateInterval(timeEnem, function () {
     mySprite2 = sprites.create(img`
 2 . . b b b b b b b b b . . 2 
@@ -143,11 +144,66 @@ game.onUpdateInterval(timeEnem, function () {
 . . . . . . . . . . . . . . . 2 2 . . . . . . . . . . . . . . . 
 `, SpriteKind.Boss)
         mySprite4.setPosition(78, 10)
-        timeEnem = 500
+        timeEnem = 650
         statusbar = statusbars.create(35, 4, StatusBarKind.EnemyHealth)
         statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
         statusbar.setLabel("Boss", 2)
         statusbar.positionDirection(CollisionDirection.Bottom)
         info.changeScoreBy(1)
+    }
+    if (info.score() == 35) {
+        boss2 = sprites.create(img`
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+. 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+. 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . . 
+. . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . . 
+. . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . . . 
+. . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . 
+. . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . 
+. . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . 
+. . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . 
+. . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . 
+. . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . 
+. . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . 
+. . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . 
+. . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . 
+. . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . 
+. . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . 
+. . . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . 
+. . . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . . 
+. . . . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . . 
+. . . . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . . . 
+. . . . . . . . . . 7 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . . . 
+. . . . . . . . . . 7 7 7 7 7 7 7 7 7 7 7 . . . . . . . . . . . 
+. . . . . . . . . . . 7 7 7 3 3 3 7 7 7 7 . . . . . . . . . . . 
+. . . . . . . . . . . 7 7 3 2 2 2 3 7 7 . . . . . . . . . . . . 
+. . . . . . . . . . . . 3 2 2 2 2 2 3 7 . . . . . . . . . . . . 
+. . . . . . . . . . . . 2 2 2 2 2 2 2 . . . . . . . . . . . . . 
+. . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . . 
+. . . . . . . . . . . . . 2 2 2 2 2 . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . 2 2 2 2 . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . 2 2 2 . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . 2 2 . . . . . . . . . . . . . . . 
+`, SpriteKind.Boss)
+        boss2.setPosition(78, 10)
+        timeEnem = 600
+        statusbar = statusbars.create(35, 4, StatusBarKind.EnemyHealth)
+        statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
+        statusbar.setLabel("Boss", 2)
+        statusbar.positionDirection(CollisionDirection.Bottom)
+        info.changeScoreBy(1)
+        for (let index = 0; index < 10; index++) {
+            pause(2000)
+            boss2.setVelocity(0, 75)
+            pause(500)
+            boss2.setVelocity(0, 2)
+            pause(500)
+            boss2.setVelocity(0, -75)
+            pause(500)
+            boss2.setVelocity(0, -2)
+            pause(500)
+            boss2.setVelocity(0, 0)
+        }
     }
 })
