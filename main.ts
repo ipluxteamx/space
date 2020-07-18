@@ -73,13 +73,13 @@ mySprite = sprites.create(img`
 . . . . d d d d d d d . . . . 
 . . . d d d d d d d d d . . . 
 8 . . d d d d d d d d d . . 8 
-8 8 d d c d c d c d c d d 8 8 
+8 8 c d c d c d c d c d c 8 8 
 8 8 8 c c c c c c c c c 8 8 8 
 8 8 8 8 c c c c c c c 8 8 8 8 
-8 8 8 8 8 c c c c c 8 8 8 8 8 
-8 8 8 8 8 c c c c c 8 8 8 8 8 
-8 8 8 8 8 c c c c c 8 8 8 8 8 
-8 8 8 8 8 c c c c c 8 8 8 8 8 
+8 8 8 8 c c c c c c c 8 8 8 8 
+8 8 8 c c c c c c c c c 8 8 8 
+8 8 c c c c c c c c c c c 8 8 
+8 . c c c c c c c c c c c . 8 
 `, SpriteKind.Player)
 controller.moveSprite(mySprite, 100, 100)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
@@ -88,9 +88,9 @@ info.setLife(3)
 let timeEnem = 700
 game.onUpdateInterval(timeEnem, function () {
     mySprite2 = sprites.create(img`
-2 2 2 2 b b b b b b b 2 2 2 2 
-2 2 2 2 b b b b b b b 2 2 2 2 
-2 2 2 2 b b b b b b b 2 2 2 2 
+2 . . b b b b b b b b b . . 2 
+2 2 . b b b b b b b b b . 2 2 
+2 2 2 b b b b b b b b b 2 2 2 
 2 2 2 2 b b b b b b b 2 2 2 2 
 2 2 2 2 b b b b b b b 2 2 2 2 
 2 2 2 b b b b b b b b b 2 2 2 
@@ -107,7 +107,7 @@ game.onUpdateInterval(timeEnem, function () {
 `, SpriteKind.Enemy)
     mySprite2.setPosition(Math.randomRange(1, 155), 0)
     mySprite2.setVelocity(0, 75)
-    if (info.score() == 35) {
+    if (info.score() == 25) {
         mySprite4 = sprites.create(img`
 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
